@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model ProcessedEvent {
+  id            String   @id @default(cuid())
+  googleEventId String   @unique
+  processedAt   DateTime @default(now())
+}
+
+model FollowUpApproval {
+  id              String          @id
+  googleEventId   String
+  contactEmail    String
+  meetingSummary  String
+  meetingStart    DateTime
+  meetingEnd      DateTime
+  meetingTimeZone String?
+  status          String          @default("pending")
+  calendarEventId String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  slots           SuggestedSlot[]
+}
+
+model SuggestedSlot {
+  id         String           @id @default(cuid())
+  approvalId String
+  start      DateTime
+  end        DateTime
+  selected   Boolean          @default(false)
+  approval   FollowUpApproval @relation(fields: [approvalId], references: [id], onDelete: Cascade)
+
+  @@index([approvalId])
+}
