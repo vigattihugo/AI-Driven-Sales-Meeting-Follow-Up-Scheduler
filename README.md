@@ -1,6 +1,6 @@
 # AI-Driven Sales Meeting Follow-Up Scheduler
 
-Aplicação TypeScript full-stack que substitui o fluxo n8n por um backend modular com painel de aprovação:
+Aplicação TypeScript full-stack com um backend modular e com painel de aprovação:
 
 1. roda todos os dias às 06:00;
 2. busca reuniões comerciais encerradas entre 2 e 4 dias atrás;
